@@ -9,6 +9,8 @@ namespace infoManager.Models
         public string Cpf {  get; set; }
         public DateOnly Birthday { get; set; }
         public StatusEnum Status {  get; set; }
-        
+
+        public List<PhoneNumber> PhoneNumber { get; set; }
+
     }
 }
