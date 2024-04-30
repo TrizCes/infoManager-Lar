@@ -1,0 +1,47 @@
+.vs/
+# Build files
+*.dll
+*.exe
+*.pdb
+*.suo
+*.cache
+*.log
+*.jfm
+*.deploy
+*.dbmdl
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.sdf
+*.opensdf
+*.cachefile
+*.VC.db
+
+# Bin directory
+bin/
+
+# Obj directory
+obj/
+
+# IDE generated files
+[Tt]humbs.db
+*.DS_Store
+
+# NuGet packages
+packages/
+
+# Publish files
+_PublishedWebsites/
+*.publishproj
+
+# Temporary files
+*.bak
+*.tmp
+
+# Logs and error files
+*.log
+*.swp
+error.log
