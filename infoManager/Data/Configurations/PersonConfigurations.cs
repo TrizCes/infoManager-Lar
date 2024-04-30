@@ -20,18 +20,24 @@ namespace infoManagerAPI.Data.Configurations
 
             builder
                 .Property(p => p.Cpf)
-                .IsRequired()
+                .IsRequired(true)
                 .HasMaxLength(11) 
                 .IsUnicode(false);
 
             builder
                 .HasIndex(p => p.Cpf)
-                .IsUnique();
+                .IsUnique(true);
 
             builder
                 .Property(p => p.Birthday)
                 .HasColumnType("date")
-                .IsRequired();
+                .IsRequired(true);
+
+            builder
+                .Property(p => p.Status)
+                .HasConversion<int>()
+                .IsRequired(true);
+
         }
     }
 }
