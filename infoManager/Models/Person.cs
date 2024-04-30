@@ -10,7 +10,7 @@ namespace infoManager.Models
         public DateOnly Birthday { get; set; }
         public StatusEnum Status {  get; set; }
 
-        public List<PhoneNumber> PhoneNumber { get; set; }
+        public List<PhoneNumber> PhoneNumbers { get; set; }
 
     }
 }
