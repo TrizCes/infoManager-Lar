@@ -2,10 +2,9 @@
 using infoManager.Data;
 using infoManagerAPI.Interfaces.Repositories;
 using infoManagerAPI.Interfaces.Services;
+using infoManagerAPI.Mapper;
 using infoManagerAPI.Repositories;
 using infoManagerAPI.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +22,8 @@ builder.Services.AddDbContext<InfoManagerDbContext>();
 builder.Services.AddScoped<IPeopleService, PeopleService>();
 
 builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
+
+builder.Services.AutoMapperConfiguration();
 
 var app = builder.Build();
 
