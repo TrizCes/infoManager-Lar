@@ -5,10 +5,6 @@ namespace infoManager.Data
 {
     public class InfoManagerDbContext : DbContext
     {
-        public InfoManagerDbContext(DbContextOptions<InfoManagerDbContext> options)
-            : base(options)
-        {
-        }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
    

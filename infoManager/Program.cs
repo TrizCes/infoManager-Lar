@@ -1,5 +1,9 @@
 
 using infoManager.Data;
+using infoManagerAPI.Interfaces.Repositories;
+using infoManagerAPI.Interfaces.Services;
+using infoManagerAPI.Repositories;
+using infoManagerAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -14,10 +18,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<InfoManagerDbContext>(options =>
-    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<InfoManagerDbContext>();
 
+builder.Services.AddScoped<IPeopleService, PeopleService>();
 
+builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
 
 var app = builder.Build();
 
