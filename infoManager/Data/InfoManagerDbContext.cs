@@ -15,7 +15,7 @@ namespace infoManager.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("ServerConnection");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=InfoManagerDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,7 +47,7 @@ namespace infoManager.Data
                 {
                     Id = 3,
                     Name = "Carlos",
-                    Cpf = "42002341060",
+                    Cpf = "06053831034",
                     Birthday = new DateOnly(1989, 01, 21),
                     Status = Models.Enums.StatusEnum.Pending
                 },

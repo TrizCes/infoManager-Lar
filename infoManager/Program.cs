@@ -1,3 +1,4 @@
+
 using infoManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<InfoManagerDbContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("ServerConnection")));
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
 
 
 var app = builder.Build();
