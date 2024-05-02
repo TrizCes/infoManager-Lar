@@ -9,7 +9,7 @@ namespace infoManagerAPI.Interfaces.Repositories
         Task<PhoneNumber> UpdateAsync(PhoneNumber phone);
         Task<PhoneNumber?> GetByIdAsync(int id);
         Task<List<PhoneNumber>> GetAllAsync();
-        Task<List<PhoneNumber>> GetByPersonAsync(int personId);
+        Task<List<PhoneNumber>> GetByPersonIdAsync(int personId);
         Task<bool> DeleteAsync(int id);
         void Detach(PhoneNumber phone);
     }

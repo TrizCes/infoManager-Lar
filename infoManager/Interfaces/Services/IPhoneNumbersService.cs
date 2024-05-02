@@ -6,8 +6,8 @@ namespace infoManagerAPI.Interfaces.Services
 {
     public interface IPhoneNumbersService
     {
-        Task<bool> CreateAsync(PhoneNumberRequest phone);
-        Task<PhoneNumberResponse> UpdateAsync(PhoneNumberRequest phone);
+        Task<PhoneNumber> CreateAsync(PhoneNumberRequest phone);
+        Task<PhoneNumberResponse> UpdateAsync(PhoneNumberRequest phone, int id);
         Task<PhoneNumberResponse?> GetByIdAsync(int id);
         Task<List<PhoneNumberResponse>> GetAllAsync();
         Task<List<PhoneNumberResponse>> GetByPersonAsync(int personId);

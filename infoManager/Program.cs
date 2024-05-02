@@ -21,8 +21,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<InfoManagerDbContext>();
 
 builder.Services.AddScoped<IPeopleService, PeopleService>();
+builder.Services.AddScoped<IPhoneNumbersService, PhoneNumbersService>();
 
 builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
+builder.Services.AddScoped<IPhoneNumbersRepository, PhoneNumbersRepository>();
+
 
 builder.Services.AutoMapperConfiguration();
 

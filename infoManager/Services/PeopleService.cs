@@ -31,7 +31,6 @@ namespace infoManagerAPI.Services
 
             var PersonData = mapper.Map<Person>(person);
             await repository.CreateAsync(PersonData);
-
             var Response = mapper.Map<PersonResponse>(PersonData);
             return Response;
         }

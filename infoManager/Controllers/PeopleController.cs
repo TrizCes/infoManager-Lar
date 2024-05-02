@@ -15,7 +15,6 @@ namespace infoManagerAPI.Controllers
     {
         private readonly IPeopleService _service = service;
 
-        // GET: api/People
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -33,7 +32,6 @@ namespace infoManagerAPI.Controllers
             }
         }
 
-        // GET: api/People/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -107,7 +105,6 @@ namespace infoManagerAPI.Controllers
             }
         }
 
-        // DELETE: api/People/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

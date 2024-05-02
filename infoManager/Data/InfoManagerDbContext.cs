@@ -65,7 +65,7 @@ namespace infoManager.Data
                         Id = 1,
                         PersonId = 1,
                         Number = "(47) 99965-1236",
-                        Type = Models.Enums.PhoneType.CellPhone
+                        Type = Models.Enums.PhoneType.Mobile
                     },
                     new PhoneNumber
                     {
