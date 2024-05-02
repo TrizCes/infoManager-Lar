@@ -5,6 +5,7 @@ using infoManagerAPI.Interfaces.Services;
 using infoManagerAPI.Mapper;
 using infoManagerAPI.Repositories;
 using infoManagerAPI.Services;
+using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +21,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<InfoManagerDbContext>();
 
 builder.Services.AddScoped<IPeopleService, PeopleService>();
+builder.Services.AddScoped<IPhoneNumbersService, PhoneNumbersService>();
 
 builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
+builder.Services.AddScoped<IPhoneNumbersRepository, PhoneNumbersRepository>();
+
 
 builder.Services.AutoMapperConfiguration();
 

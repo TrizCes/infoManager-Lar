@@ -1,5 +1,5 @@
 ﻿using infoManager.Models.Enums;
-using infoManager.Models;
+using infoManagerAPI.DTO.PhoneNumber.Response;
 
 namespace infoManagerAPI.DTO.Person.Response
 {
@@ -10,6 +10,6 @@ namespace infoManagerAPI.DTO.Person.Response
         public string Cpf { get; set; }
         public DateOnly Birthday { get; set; }
         public StatusEnum Status { get; set; }
-        public List<PhoneNumber> Phones { get; set; }
+        public List<PhoneNumberResponse> Phones { get; set; }
     }
 }
