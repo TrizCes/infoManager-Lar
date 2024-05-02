@@ -22,8 +22,8 @@ namespace infoManagerAPI.Services
             if (string.IsNullOrWhiteSpace(phone.Type.ToString()))
                 throw new BadRequestException("Type field cannot be empty");
 
-            var PersonExist = peopleRepository.GetByIdAsync(phone.PersonId);
-            if (PersonExist == null) throw new BadRequestException("Person ID doesn't match our database");
+            var PersonExist = await peopleRepository.GetByIdAsync(phone.PersonId);
+            if (PersonExist == null) throw new BadRequestException("Person ID doesn't matches our database");
 
             var data = mapper.Map<PhoneNumber>(phone);
             await repository.CreateAsync(data);
@@ -55,6 +55,8 @@ namespace infoManagerAPI.Services
 
         public async Task<List<PhoneNumberResponse>> GetByPersonAsync(int personId)
         {
+            var Person = await peopleRepository.GetByIdAsync(personId);
+            if (Person == null) throw new BadRequestException("Person ID doesn't exist");
             var Data = await repository.GetByPersonIdAsync(personId);
             var Response = mapper.Map<List<PhoneNumberResponse>>(Data);
             return Response;
@@ -64,6 +66,10 @@ namespace infoManagerAPI.Services
         {
             if (string.IsNullOrWhiteSpace(phone.Number)) throw new BadRequestException("Number field cannot be empty");
             if (string.IsNullOrWhiteSpace(phone.Type.ToString())) throw new BadRequestException("Type field cannot be empty");
+
+            var Person = await peopleRepository.GetByIdAsync(phone.PersonId);
+            if (Person == null) throw new BadRequestException("Person ID doesn't exist");
+
             var data = mapper.Map<PhoneNumber>(phone);
             data.Id = id;
             await repository.UpdateAsync(data);

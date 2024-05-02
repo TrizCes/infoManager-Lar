@@ -8,7 +8,7 @@ namespace infoManagerAPI.Mapper.Request
     {
         public PersonRequestToPersonProfile() 
         {
-            CreateMap<PersonUpdateRequest, Person>()
+            CreateMap<PersonRequest, Person>()
                 .ForMember(x => x.Id, y => y.Ignore())
                 .ForMember(x => x.Name, y => y.MapFrom(src => src.Name))
                 .ForMember(x => x.Cpf, y => y.MapFrom(src => src.Cpf))

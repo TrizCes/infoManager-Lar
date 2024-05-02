@@ -6,7 +6,7 @@ using infoManagerAPI.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace infoManagerAPI.Repositories
+namespace infoManagerAPI.Data.Repositories
 {
     public class PeopleRepository(InfoManagerDbContext context) : IPeopleRepository
     {
@@ -15,7 +15,7 @@ namespace infoManagerAPI.Repositories
         public async Task<bool> CreateAsync(Person person)
         {
             await _context.AddAsync(person);
-            return await _context.SaveChangesAsync() > 0; 
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> UpdateAsync(Person person)
@@ -41,15 +41,15 @@ namespace infoManagerAPI.Repositories
 
         public async Task<List<Person>> GetAllAsync()
         {
-            return await _context.People.ToListAsync<Person>();
+            return await _context.People.ToListAsync();
         }
 
-        public async Task<Person> GetByIdAsync(int id)
+        public async Task<Person?> GetByIdAsync(int id)
         {
             return await _context.People.FindAsync(id);
         }
 
-        public async Task<Person> GetByCpfAsync(string cpf)
+        public async Task<Person?> GetByCpfAsync(string cpf)
         {
             return await _context.People
                .Where(Person => Person.Cpf == cpf).FirstOrDefaultAsync();
@@ -58,7 +58,7 @@ namespace infoManagerAPI.Repositories
         public async Task<bool> DeleteAsync(int id)
         {
             var person = await GetByIdAsync(id);
-            _context.People.Remove(person); 
+            _context.People.Remove(person);
             return await _context.SaveChangesAsync() > 0;
 
         }
