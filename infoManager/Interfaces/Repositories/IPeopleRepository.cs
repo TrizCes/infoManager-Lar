@@ -10,7 +10,7 @@ namespace infoManagerAPI.Interfaces.Repositories
         Task<bool> UpdateStatus(StatusEnum status, int id);
         Task<Person?> GetByIdAsync(int id);
         Task<List<Person>> GetAllAsync();
-        Task<Person> GetByCpfAsync(string cpf);
+        Task<Person?> GetByCpfAsync(string cpf);
         Task<bool> DeleteAsync(int id);
         void Detach(Person person);
     }
