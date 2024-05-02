@@ -2,7 +2,7 @@
 {
     public enum PhoneType
     {
-        CellPhone = 0,
+        Mobile = 0,
         Residential = 1,
         Commercial = 2,
         EmergencyContact = 3

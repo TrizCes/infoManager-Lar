@@ -5,6 +5,7 @@ using infoManagerAPI.Interfaces.Services;
 using infoManagerAPI.Mapper;
 using infoManagerAPI.Repositories;
 using infoManagerAPI.Services;
+using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
