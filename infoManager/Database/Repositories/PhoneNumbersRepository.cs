@@ -4,7 +4,7 @@ using infoManagerAPI.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace infoManagerAPI.Repositories
+namespace infoManagerAPI.Data.Repositories
 {
     public class PhoneNumbersRepository : IPhoneNumbersRepository
     {
@@ -25,7 +25,7 @@ namespace infoManagerAPI.Repositories
         {
             _context.Update(phone);
             var sucess = await _context.SaveChangesAsync() > 0;
-            if(!sucess) throw new Exception("Failed to update");
+            if (!sucess) throw new Exception("Failed to update");
             return phone;
         }
 

@@ -23,7 +23,7 @@ namespace infoManagerAPI.Services
                 throw new BadRequestException("Type field cannot be empty");
 
             var PersonExist = await peopleRepository.GetByIdAsync(phone.PersonId);
-            if (PersonExist == null) throw new BadRequestException("Person ID doesn't match our database");
+            if (PersonExist == null) throw new BadRequestException("Person ID doesn't matches our database");
 
             var data = mapper.Map<PhoneNumber>(phone);
             await repository.CreateAsync(data);

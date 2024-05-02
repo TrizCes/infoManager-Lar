@@ -1,9 +1,9 @@
 
 using infoManager.Data;
+using infoManagerAPI.Data.Repositories;
 using infoManagerAPI.Interfaces.Repositories;
 using infoManagerAPI.Interfaces.Services;
 using infoManagerAPI.Mapper;
-using infoManagerAPI.Repositories;
 using infoManagerAPI.Services;
 using Microsoft.AspNetCore.Hosting;
 

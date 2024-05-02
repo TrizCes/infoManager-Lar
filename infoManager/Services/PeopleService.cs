@@ -3,6 +3,7 @@ using infoManager.Models;
 using infoManager.Models.Enums;
 using infoManagerAPI.DTO.Person.Request;
 using infoManagerAPI.DTO.Person.Response;
+using infoManagerAPI.DTO.PhoneNumber.Response;
 using infoManagerAPI.Exceptions;
 using infoManagerAPI.Interfaces.Repositories;
 using infoManagerAPI.Interfaces.Services;
@@ -10,7 +11,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 
 namespace infoManagerAPI.Services
 {
-    public class PeopleService(IPeopleRepository repository, IMapper mapper) : IPeopleService
+    public class PeopleService(IPeopleRepository repository, IPhoneNumbersRepository phoneRepository, IMapper mapper) : IPeopleService
     {
         public async Task<PersonResponse> CreateAsync(PersonRequest person)
         {
@@ -46,14 +47,30 @@ namespace infoManagerAPI.Services
         public async Task<List<PersonResponse>> GetAllAsync()
         {
             var PeopleData = await repository.GetAllAsync();
-            var Response = mapper.Map<List<PersonResponse>>(PeopleData);
-            return Response;
+            var PleopleList = mapper.Map<List<PersonResponse>>(PeopleData);
+
+            foreach (var personData in PleopleList)
+            {
+                var PhoneData = mapper.Map<List<PhoneNumberResponse>>(await phoneRepository.GetByPersonIdAsync(personData.Id));
+                foreach (var phone in PhoneData)
+                {
+                    personData.Phones.Add(phone);
+                }
+            }
+            return PleopleList;
         }
 
         public async Task<PersonResponse?> GetByIdAsync(int id)
         {
             var PersonData = await repository.GetByIdAsync(id) ?? throw new NotFoundException("ID not found");
             var Response = mapper.Map<PersonResponse>(PersonData);
+            var PhoneData = mapper.Map<List<PhoneNumberResponse>>(await phoneRepository.GetByPersonIdAsync(PersonData.Id));
+
+            foreach (var item in PhoneData)
+            {
+                Response.Phones.Add(item);
+            }
+            
             return Response;
         }
 
