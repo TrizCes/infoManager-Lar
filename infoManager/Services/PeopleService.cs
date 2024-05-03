@@ -75,9 +75,8 @@ namespace infoManagerAPI.Services
 
         public async Task<bool> UpdateAsync(PersonUpdateRequest person, int id)
         {
-            var IdExist = await GetByIdAsync(id);
+            var IdExist = await repository.GetByIdAsync(id);
             if(IdExist == null) throw new NotFoundException("ID not found");
-            repository.Detach(mapper.Map<Person>(IdExist));
 
             if (string.IsNullOrWhiteSpace(person.Name))
                 throw new BadRequestException("Name field cannot be empty");
@@ -88,7 +87,6 @@ namespace infoManagerAPI.Services
             var CpfExist = await repository.GetByCpfAsync(person.Cpf);
             if (CpfExist != null && id != CpfExist.Id)
             {
-                repository.Detach(mapper.Map<Person>(CpfExist));
                 throw new BadRequestException("CPF is already registered for another person");
             }
 
@@ -98,7 +96,6 @@ namespace infoManagerAPI.Services
 
             var updatedPerson = mapper.Map<Person>(person) ?? throw new Exception("Error mapping data");
             updatedPerson.Id = id;
-            repository.Detach(mapper.Map<Person>(updatedPerson));
             var result = await repository.UpdateAsync(updatedPerson);
             return result;
 

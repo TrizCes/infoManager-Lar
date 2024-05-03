@@ -21,7 +21,6 @@ namespace infoManagerAPI.Data.Repositories
         public async Task<bool> UpdateAsync(Person person)
         {
             _context.Update(person);
-            Detach(person);
             return await _context.SaveChangesAsync() > 0;
         }
 
@@ -47,13 +46,17 @@ namespace infoManagerAPI.Data.Repositories
 
         public async Task<Person?> GetByIdAsync(int id)
         {
-            return await _context.People.FindAsync(id);
+            var Data = await _context.People.FindAsync(id);
+            Detach(Data);
+            return Data;
         }
 
         public async Task<Person?> GetByCpfAsync(string cpf)
         {
-            return await _context.People
+            var Data =  await _context.People
                .Where(Person => Person.Cpf == cpf).FirstOrDefaultAsync();
+            if(Data != null) Detach(Data);
+            return Data;
         }
 
         public async Task<bool> DeleteAsync(int id)

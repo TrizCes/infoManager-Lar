@@ -66,11 +66,14 @@ namespace infoManagerAPI.Services
 
         public async Task<PhoneNumberResponse> UpdateAsync(PhoneNumberRequest phone, int id)
         {
+            var ancient = await repository.GetByIdAsync(id);
+
+            if (ancient == null) throw new BadRequestException($"The ID {id} doesn't exist");
+            if (ancient.PersonId != phone.PersonId) throw new BadRequestException($"Person ID {phone.PersonId} doesn't exist for this ID {id}");
             if (string.IsNullOrWhiteSpace(phone.Number)) throw new BadRequestException("Number field cannot be empty");
             if (string.IsNullOrWhiteSpace(phone.Type.ToString())) throw new BadRequestException("Type field cannot be empty");
 
-            var Person = await peopleRepository.GetByIdAsync(phone.PersonId);
-            if (Person == null) throw new BadRequestException("Person ID doesn't exist");
+            
 
             var data = mapper.Map<PhoneNumber>(phone);
             data.Id = id;
