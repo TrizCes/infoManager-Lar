@@ -1,6 +1,4 @@
-﻿using infoManager.Models.Enums;
-using infoManager.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 namespace infoManagerAPI.DTO.Person.Request
 {
     public class PersonUpdateRequest

@@ -21,6 +21,7 @@ namespace infoManagerAPI.Data.Repositories
         public async Task<bool> UpdateAsync(Person person)
         {
             _context.Update(person);
+            Detach(person);
             return await _context.SaveChangesAsync() > 0;
         }
 

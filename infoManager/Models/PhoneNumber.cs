@@ -1,4 +1,5 @@
 ﻿using infoManager.Models.Enums;
+using System.Text.Json.Serialization;
 
 namespace infoManager.Models
 {
@@ -9,6 +10,7 @@ namespace infoManager.Models
         public string Number { get; set; }
         public PhoneType Type { get; set; }
 
+        [JsonIgnore]
         public virtual Person Person { get; set; }
     }
 }

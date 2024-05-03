@@ -7,13 +7,14 @@ using infoManagerAPI.DTO.PhoneNumber.Response;
 using infoManagerAPI.Exceptions;
 using infoManagerAPI.Interfaces.Repositories;
 using infoManagerAPI.Interfaces.Services;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace infoManagerAPI.Services
 {
     public class PhoneNumbersService(IPhoneNumbersRepository repository, IMapper mapper, IPeopleRepository peopleRepository) : IPhoneNumbersService
     {
 
-        public async Task<PhoneNumber> CreateAsync(PhoneNumberRequest phone)
+        public async Task<PhoneNumberFullResponse> CreateAsync(PhoneNumberRequest phone)
         {
             if (string.IsNullOrWhiteSpace(phone.Number))
                 throw new BadRequestException("Number field cannot be empty");
@@ -27,8 +28,8 @@ namespace infoManagerAPI.Services
 
             var data = mapper.Map<PhoneNumber>(phone);
             await repository.CreateAsync(data);
-
-            return data;
+            var response = mapper.Map<PhoneNumberFullResponse>(data);
+            return response;
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -45,18 +46,19 @@ namespace infoManagerAPI.Services
             return Response;
         }
 
-        public async Task<PhoneNumberResponse?> GetByIdAsync(int id)
+        public async Task<PhoneNumberFullResponse?> GetByIdAsync(int id)
         {
             var Data = await repository.GetByIdAsync(id);
-            var Response = mapper.Map<PhoneNumberResponse?>(Data);
-            return Response;
+            if (Data == null) throw new NotFoundException("ID doesn't exist");
+            var response = mapper.Map<PhoneNumberFullResponse>(Data);
+            return response;
 
         }
 
         public async Task<List<PhoneNumberResponse>> GetByPersonAsync(int personId)
         {
             var Person = await peopleRepository.GetByIdAsync(personId);
-            if (Person == null) throw new BadRequestException("Person ID doesn't exist");
+            if (Person == null) throw new NotFoundException("Person ID doesn't exist");
             var Data = await repository.GetByPersonIdAsync(personId);
             var Response = mapper.Map<List<PhoneNumberResponse>>(Data);
             return Response;
