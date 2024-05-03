@@ -1,5 +1,5 @@
-﻿using infoManager.Models.Enums;
-using infoManager.Models;
+﻿using infoManagerAPI.Models.Enums;
+using infoManagerAPI.Models;
 using infoManagerAPI.DTO.Person.Request;
 using infoManagerAPI.DTO.Person.Response;
 

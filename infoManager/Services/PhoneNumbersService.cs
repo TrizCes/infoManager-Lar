@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using infoManager.Models.Enums;
-using infoManager.Models;
-using infoManagerAPI.DTO.Person.Response;
 using infoManagerAPI.DTO.PhoneNumber.Request;
 using infoManagerAPI.DTO.PhoneNumber.Response;
 using infoManagerAPI.Exceptions;
 using infoManagerAPI.Interfaces.Repositories;
 using infoManagerAPI.Interfaces.Services;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using infoManagerAPI.Models;
+
 
 namespace infoManagerAPI.Services
 {

@@ -1,5 +1,5 @@
-﻿using infoManager.Models;
-using infoManager.Models.Enums;
+﻿using infoManagerAPI.Models;
+using infoManagerAPI.Models.Enums;
 
 namespace infoManagerAPI.Interfaces.Repositories
 {

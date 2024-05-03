@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using infoManager.Models;
+using infoManagerAPI.Models;
 using infoManagerAPI.Interfaces.Services;
 using infoManagerAPI.DTO.PhoneNumber.Response;
 using infoManagerAPI.DTO.PhoneNumber.Request;

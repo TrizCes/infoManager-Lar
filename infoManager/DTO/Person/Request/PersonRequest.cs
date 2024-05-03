@@ -1,5 +1,5 @@
-﻿using infoManager.Models.Enums;
-using infoManager.Models;
+﻿using infoManagerAPI.Models.Enums;
+using infoManagerAPI.Models;
 using System.ComponentModel.DataAnnotations;
 namespace infoManagerAPI.DTO.Person.Request
 {

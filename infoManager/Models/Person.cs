@@ -1,6 +1,6 @@
-﻿using infoManager.Models.Enums;
+﻿using infoManagerAPI.Models.Enums;
 
-namespace infoManager.Models
+namespace infoManagerAPI.Models
 {
     public class Person
     {

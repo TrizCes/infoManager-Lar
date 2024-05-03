@@ -1,10 +1,10 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using infoManager.Models;
+using infoManagerAPI.Models;
 using infoManagerAPI.Interfaces.Services;
 using infoManagerAPI.DTO.Person.Request;
 using infoManagerAPI.Exceptions;
-using infoManager.Models.Enums;
+using infoManagerAPI.Models.Enums;
 using infoManagerAPI.DTO.Person.Response;
 
 namespace infoManagerAPI.Controllers

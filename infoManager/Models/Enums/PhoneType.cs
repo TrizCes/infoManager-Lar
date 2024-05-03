@@ -1,4 +1,4 @@
-﻿namespace infoManager.Models.Enums
+﻿namespace infoManagerAPI.Models.Enums
 {
     public enum PhoneType
     {

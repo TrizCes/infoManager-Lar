@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using infoManager.Models;
-using infoManager.Models.Enums;
 using infoManagerAPI.DTO.Person.Request;
 using infoManagerAPI.DTO.Person.Response;
 using infoManagerAPI.DTO.PhoneNumber.Response;
 using infoManagerAPI.Exceptions;
 using infoManagerAPI.Interfaces.Repositories;
 using infoManagerAPI.Interfaces.Services;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using infoManagerAPI.Models;
+using infoManagerAPI.Models.Enums;
 
 namespace infoManagerAPI.Services
 {
