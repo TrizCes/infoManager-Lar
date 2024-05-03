@@ -9,7 +9,7 @@ namespace infoManagerAPI.DTO.PhoneNumber.Request
         public string Number { get; set; }
 
         [Required(ErrorMessage = "Type is required")]
-        [Range(0, 3, ErrorMessage = "Mobile = 0,\r\n        Residential = 1,\r\n        Commercial = 2,\r\n        EmergencyContact = 3")]
+        [Range(0, 3, ErrorMessage = "Mobile = 0, Residential = 1, Commercial = 2, EmergencyContact = 3")]
         public PhoneType Type { get; set; }
     }
 }

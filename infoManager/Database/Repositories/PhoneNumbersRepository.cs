@@ -26,6 +26,7 @@ namespace infoManagerAPI.Data.Repositories
             _context.Update(phone);
             var sucess = await _context.SaveChangesAsync() > 0;
             if (!sucess) throw new Exception("Failed to update");
+            Detach(phone);
             return phone;
         }
 
@@ -36,13 +37,16 @@ namespace infoManagerAPI.Data.Repositories
 
         public async Task<PhoneNumber?> GetByIdAsync(int id)
         {
-            return await _context.PhoneNumbers.FindAsync(id);
+            var Data = await _context.PhoneNumbers.FindAsync(id);
+            Detach(Data);
+            return Data;
         }
 
         public async Task<List<PhoneNumber>> GetByPersonIdAsync(int personId)
         {
             return await _context.PhoneNumbers
               .Where(Phone => Phone.PersonId == personId).ToListAsync();
+
         }
 
         public async Task<bool> DeleteAsync(int id)

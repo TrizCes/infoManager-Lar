@@ -2,9 +2,8 @@
 
 namespace infoManagerAPI.DTO.PhoneNumber.Response
 {
-    public class PhoneNumberFullResponse
+    public class PhoneNumberResponse
     {
-        public int Id { get; set; }
         public string Number { get; set; }
 
         public String Type { get; set; }
