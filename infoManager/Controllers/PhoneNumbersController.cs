@@ -40,7 +40,7 @@ namespace infoManagerAPI.Controllers
             { 
                 return Ok(await service.GetByPersonAsync(id));
             }
-            catch (NotFoundException ex)
+            catch (Exception ex)
             {
                 return NotFound(ex.Message);
     
@@ -54,7 +54,7 @@ namespace infoManagerAPI.Controllers
             { 
                 return Ok(await service.GetByIdAsync(id));
             }
-            catch (NotFoundException ex)
+            catch (Exception ex)
             {
                 return NotFound(ex.Message);
 
@@ -87,19 +87,17 @@ namespace infoManagerAPI.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PhoneNumberResponse>> PostPhoneNumber(PhoneNumberRequest phoneNumber)
+        public async Task<ActionResult<PhoneNumberFullResponse>> PostPhoneNumber(PhoneNumberRequest phoneNumber)
         {
             try
             {
                 var data = await service.CreateAsync(phoneNumber);
-                return CreatedAtAction("New phone", data);
+                return CreatedAtAction(nameof(GetPhoneNumber),new { Id = data.Id }, data);
             }
             catch (Exception e)
             {
-                if (e.HResult == 404) return NotFound(e.Message);
-                if (e.HResult == 409) return Conflict(e.Message);
-
                 return BadRequest(e.Message);
             }
         }

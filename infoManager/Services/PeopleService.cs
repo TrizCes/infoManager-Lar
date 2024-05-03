@@ -28,9 +28,8 @@ namespace infoManagerAPI.Services
             if (person.Birthday.CompareTo(sixteenYearsAgo) >= 0)
                 throw new BadRequestException("The person must be at least 16 years old");
 
-            person.Status = StatusEnum.Pending;
-
             var PersonData = mapper.Map<Person>(person);
+            PersonData.Status = StatusEnum.Pending;
             await repository.CreateAsync(PersonData);
             var Response = mapper.Map<PersonResponse>(PersonData);
             return Response;
@@ -76,7 +75,10 @@ namespace infoManagerAPI.Services
 
         public async Task<bool> UpdateAsync(PersonUpdateRequest person, int id)
         {
-            var IdExist = await GetByIdAsync(id) ?? throw new NotFoundException("ID not found");
+            var IdExist = await GetByIdAsync(id);
+            if(IdExist == null) throw new NotFoundException("ID not found");
+            repository.Detach(mapper.Map<Person>(IdExist));
+
             if (string.IsNullOrWhiteSpace(person.Name))
                 throw new BadRequestException("Name field cannot be empty");
 
@@ -84,7 +86,11 @@ namespace infoManagerAPI.Services
                 throw new BadRequestException("CPF field cannot be empty");
 
             var CpfExist = await repository.GetByCpfAsync(person.Cpf);
-            if (CpfExist != null && id != CpfExist.Id) throw new BadRequestException("CPF is already registered for another person");
+            if (CpfExist != null && id != CpfExist.Id)
+            {
+                repository.Detach(mapper.Map<Person>(CpfExist));
+                throw new BadRequestException("CPF is already registered for another person");
+            }
 
             var sixteenYearsAgo = DateOnly.FromDateTime(DateTime.Today).AddYears(-16);
             if (person.Birthday.CompareTo(sixteenYearsAgo) >= 0)
@@ -92,7 +98,7 @@ namespace infoManagerAPI.Services
 
             var updatedPerson = mapper.Map<Person>(person) ?? throw new Exception("Error mapping data");
             updatedPerson.Id = id;
-            repository.Detach(mapper.Map<Person>(IdExist));
+            repository.Detach(mapper.Map<Person>(updatedPerson));
             var result = await repository.UpdateAsync(updatedPerson);
             return result;
 

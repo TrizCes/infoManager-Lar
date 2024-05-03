@@ -6,6 +6,7 @@ using infoManagerAPI.Interfaces.Services;
 using infoManagerAPI.Mapper;
 using infoManagerAPI.Services;
 using Microsoft.AspNetCore.Hosting;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
