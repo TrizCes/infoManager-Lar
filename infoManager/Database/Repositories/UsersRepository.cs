@@ -40,6 +40,7 @@ namespace infoManagerAPI.Database.Repositories
 
         public async Task<bool> UpdatePasswordAsync(string password, User user)
         {
+            user.Password = password;
             _context.Users.Update(user);
             Detach(user);
             return await _context.SaveChangesAsync() > 0;
