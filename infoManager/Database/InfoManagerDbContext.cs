@@ -1,18 +1,18 @@
-﻿using infoManager.Models;
+﻿using infoManagerAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace infoManager.Data
+namespace infoManagerAPI.Data
 {
     public class InfoManagerDbContext : DbContext
     {
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
    
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source=ALEXEBEA3D;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
-            optionsBuilder.EnableSensitiveDataLogging();
+            optionsBuilder.UseSqlServer("Data Source=ALEXEBEA3D;Initial Catalog=InfoManagerDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,6 +20,35 @@ namespace infoManager.Data
             base.OnModelCreating(modelBuilder);
             var assembly = GetType().Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+
+            modelBuilder
+                .Entity<User>()
+                .HasData(
+                new User
+                {
+                    Id = 1,
+                    Username = "Manager",
+                    Email = "manager@infomanager.com",
+                    Password = "Password",
+                    Role = Models.Enums.RoleEnum.Admin
+                },
+                new User
+                {
+                    Id = 2,
+                    Username = "Fulano",
+                    Email = "fulano@infomanager.com",
+                    Password = "A12345678",
+                    Role = Models.Enums.RoleEnum.Regular
+                },
+                new User
+                {
+                    Id = 3,
+                    Username = "Beltrano",
+                    Email = "beltrano@infomanager.com",
+                    Password = "A12345678",
+                    Role = Models.Enums.RoleEnum.Visitor
+                }
+                );
 
             modelBuilder
                 .Entity<Person>()

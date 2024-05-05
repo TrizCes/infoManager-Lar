@@ -5,6 +5,7 @@ using infoManagerAPI.DTO.User.Response;
 using infoManagerAPI.Exceptions;
 using infoManagerAPI.Interfaces.Repositories;
 using infoManagerAPI.Interfaces.Services;
+using infoManagerAPI.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -19,6 +20,10 @@ namespace infoManagerAPI.Services
             var emailExist = await repository.GetUserAsync(user.Email);
             if (emailExist == null) throw new BadRequestException("Email already registered");
 
+            var NewUser = mapper.Map<User>(user);
+            var Data = await repository.CreateAsync(NewUser);
+            var result = mapper.Map<UserResponse>(Data);
+            return result;
 
         }
 

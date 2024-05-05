@@ -1,8 +1,6 @@
 ﻿using infoManagerAPI.DTO.Authenticate.Request;
 using infoManagerAPI.DTO.User.Request;
 using infoManagerAPI.DTO.User.Response;
-using infoManagerAPI.Models;
-using infoManagerAPI.Models.Enums;
 
 namespace infoManagerAPI.Interfaces.Services
 {
