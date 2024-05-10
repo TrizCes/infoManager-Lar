@@ -59,6 +59,7 @@ Toda requisição feita à API precisa ser autenticada por meio de um token de a
 - Abra o Visual Studio 2022;
 - Abra a solução do projeto dentro do Visual Studio;
 - Certifique-se de que o SQL Server está instalado e em execução em sua máquina;
+- Ajuste a rota de conexão do banco de dados (no arquivo: `InfoManagerDbContext.cs`) para a rota apropriada no seu dispositivo;
 - Execute as migrações para criar o banco de dados InfoManagerDb. Isso pode ser feito usando o console do Gerenciador de Pacotes NuGet com o comando Update-Database;
 - Inicie o projeto API InfoManager no Visual Studio;
 - Após o projeto ser iniciado, você pode acessar a API usando um cliente HTTP, como Postman ou Insomnia, ou até mesmo o Swagger incorporado, que pode ser acessado através da URL da API seguida de /swagger/index.html, onde você pode testar todas as rotas disponíveis;
