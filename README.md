@@ -68,3 +68,30 @@ Toda requisição feita à API precisa ser autenticada por meio de um token de a
     - Com o token JWT obtido, clique no botão "Authorize" na interface do Swagger e insira o token no formato Bearer {seu-token}.
 - Certifique-se de incluir o token de autenticação no cabeçalho de todas as requisições, no formato Bearer [seu-token];
 - Utilize os endpoints da API conforme necessário, lembrando de seguir as boas práticas de segurança e respeitar os status codes fornecidos.
+
+#### Login :
+Utilize algum dos seguintes usuarios para logar.
+
+- Autorização: Admin - acesso total, visualizar e editar.
+```javascript
+{
+  "email": "manager@infomanager.com",
+  "password": "Password1234"
+}
+```
+
+- Autorização: Regular - acesso intermediário, visualizar e editar algumas informações.
+```javascript
+{
+  "email": "fulano@infomanager.com",
+  "password": "Password1234"
+}
+```
+
+- Autorização: Visitor - acesso limitado, apenas visualizar.
+```javascript
+{
+  "email": "beltrano@infomanager.com",
+  "password": "Password1234"
+}
+```
