@@ -6,15 +6,17 @@ using infoManagerAPI.Exceptions;
 using infoManagerAPI.Interfaces.Repositories;
 using infoManagerAPI.Interfaces.Services;
 using infoManagerAPI.Models;
+using infoManagerAPI.Utils;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace infoManagerAPI.Services
 {
-    public class UsersService(IUsersRepository repository, IMapper mapper, IConfiguration configuration) : IUsersService
+    public class UsersService(IUsersRepository repository, IMapper mapper) : IUsersService
     {
         public async Task<UserResponse> CreateAsync(UserRequest user)
         {
@@ -24,19 +26,23 @@ namespace infoManagerAPI.Services
                 throw new BadRequestException("Email already registered");
             }
 
-            _=ValidatePassword(user.Password);
+            _= await ValidatePassword(user.Password);
+
+            user.Password = Cryptography.EncryptPassword(user.Password);
 
             var NewUser = mapper.Map<User>(user);
             var Data = await repository.CreateAsync(NewUser);
-            var result = mapper.Map<UserResponse>(Data);
+            if (!Data) throw new Exception("Error to save new user");
+            var result = mapper.Map<UserResponse>(NewUser);
             return result;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var data = await GetByIdAsync(id);
-             
-            var result = await repository.DeleteAsync(id);
+            var data = await repository.GetByIdAsync(id);
+            if (data == null) throw new NotFoundException($"The ID does not exist in ours database");
+
+            var result = await repository.DeleteAsync(data);
             if (!result) throw new DeleteFailureException("Failed to delete");
             return result;
         }
@@ -54,10 +60,19 @@ namespace infoManagerAPI.Services
         }
 
 
-        public async Task<bool> UpdatePasswordAsync(string password, UserRequest user)
+        public async Task<bool> UpdatePasswordAsync(int id, PasswordRequest request)
         {
-            _=ValidatePassword(password);
-            return true;
+            if (request.Password == null || request.Password != request.ConfirmPassword)
+                throw new BadRequestException("Password and confirmation password must have the same value. Password must be at least 8 characters long, contain letters, numbers, and at least one uppercase letter");
+            
+            var user = await repository.GetByIdAsync(id);
+            if (user == null) throw new NotFoundException($"The ID does not exist in ours database");
+
+            _ = await ValidatePassword(request.Password);
+            user.Password = Cryptography.EncryptPassword(request.Password);
+            
+            var result = await repository.UpdatePasswordAsync(user);
+            return result;
         }
 
         public async Task<bool> ValidatePassword(string password)
@@ -69,40 +84,6 @@ namespace infoManagerAPI.Services
             return true;
         }
 
-        public async Task<string> GeneratorJwtToken(AuthenticationRequest request)
-        {
-            if (!request.IsValid)
-                throw new BadRequestException("Invalid data");
-
-            var user = await repository.GetUserAsync(request.UserEmail!);
-
-            if (user == null)
-                throw new NotFoundException("Invalid data");
-
-            if (request.Password != user.Password)
-                throw new UnauthorizedException("User or password invalid");
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(configuration.GetValue<string>("jwtKey")!);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(
-                    new[]
-                    {
-                        new Claim("id", user.Id.ToString(), ClaimValueTypes.Integer32),
-                        new Claim("role", Convert.ToInt32(user.Role).ToString(), ClaimValueTypes.Integer32)
-                    }
-                ),
-                Expires = DateTime.UtcNow.AddMinutes(
-                    configuration.GetValue<int>("App:secret-timeout")!
-                ),
-                SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256Signature
-                )
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
+       
     }
 }

@@ -10,11 +10,11 @@ namespace infoManagerAPI.Interfaces.Repositories
     public interface IUsersRepository
     {
         Task<bool> CreateAsync(User user);
-        Task<bool> UpdatePasswordAsync(string password, User user);
+        Task<bool> UpdatePasswordAsync(User user);
         Task<User> GetByIdAsync(int id);
         Task<User> GetUserAsync(string email);
         Task<List<User>> GetAllAsync();
-        Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(User user);
         void Detach (User user);
     }
 }

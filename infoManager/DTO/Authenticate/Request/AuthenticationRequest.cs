@@ -5,7 +5,7 @@ namespace infoManagerAPI.DTO.Authenticate.Request
     public class AuthenticationRequest
     {
         [Required]
-        public string? UserEmail { get; set; }
+        public string? Email { get; set; }
 
         [Required]
         public string? Password { get; set; }
@@ -14,7 +14,7 @@ namespace infoManagerAPI.DTO.Authenticate.Request
 
         private bool Validate()
         {
-            return !string.IsNullOrEmpty(UserEmail) && !string.IsNullOrEmpty(Password);
+            return !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(Password);
         }
     }
 }

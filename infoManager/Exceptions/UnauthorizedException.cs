@@ -1,8 +1,8 @@
 ﻿namespace infoManagerAPI.Exceptions
 {
-    public class UnauthorizedException : Exception
+    public class UnauthorizedException : HttpException
     {
         public UnauthorizedException(string mensagem)
-            : base(mensagem) { }
+            : base(401, mensagem) { }
     }
 }

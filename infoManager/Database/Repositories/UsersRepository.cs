@@ -1,5 +1,4 @@
 ﻿using infoManagerAPI.Data;
-using infoManagerAPI.DTO.User.Response;
 using infoManagerAPI.Interfaces.Repositories;
 using infoManagerAPI.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +15,8 @@ namespace infoManagerAPI.Database.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(User user)
         {
-            var user = await GetByIdAsync(id);
             _context.Users.Remove(user);
             return await _context.SaveChangesAsync() > 0;
         }
@@ -38,11 +36,10 @@ namespace infoManagerAPI.Database.Repositories
             return await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdatePasswordAsync(string password, User user)
+        public async Task<bool> UpdatePasswordAsync(User user)
         {
-            user.Password = password;
-            _context.Users.Update(user);
             Detach(user);
+            _context.Users.Update(user);
             return await _context.SaveChangesAsync() > 0;
         }
 

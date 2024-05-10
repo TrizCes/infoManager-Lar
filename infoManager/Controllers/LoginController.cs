@@ -1,14 +1,13 @@
 ﻿using infoManagerAPI.DTO.Authenticate.Request;
 using infoManagerAPI.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace infoManagerAPI.Controllers
 {
     [Route("login")]
     [ApiController]
-    public class LoginController(IUsersService service) : ControllerBase
+    public class LoginController(IAuthService service) : ControllerBase
     {
     
         [HttpPost]

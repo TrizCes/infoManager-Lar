@@ -2,9 +2,11 @@
 using infoManagerAPI.Data;
 using infoManagerAPI.Data.Repositories;
 using infoManagerAPI.Database.Repositories;
+using infoManagerAPI.Exceptions;
 using infoManagerAPI.Interfaces.Repositories;
 using infoManagerAPI.Interfaces.Services;
 using infoManagerAPI.Mapper;
+using infoManagerAPI.Models.Enums;
 using infoManagerAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -18,7 +20,7 @@ var configuration = builder.Configuration;
 
 builder.Services.AddControllers();
 
-var jwtKey = configuration.GetSection("tokenKey").Get<string>();
+var jwtKey = configuration.GetSection("jwtKey").Get<string>();
 
 builder.Services.AddAuthentication(x =>
 {
@@ -33,6 +35,19 @@ builder.Services.AddAuthentication(x =>
         ValidateIssuer = false,
         ValidateAudience = false
     };
+
+    x.Events = new JwtBearerEvents
+    {
+        OnChallenge = context =>
+        {
+            if (context.AuthenticateFailure != null)
+            {
+                throw new UnauthorizedException("Unauthorized to perform this action");
+            }
+            return Task.CompletedTask;
+        }
+    };
+
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -76,19 +91,21 @@ builder.Services.AddDbContext<InfoManagerDbContext>();
 builder.Services.AddScoped<IPeopleService, PeopleService>();
 builder.Services.AddScoped<IPhoneNumbersService, PhoneNumbersService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
 builder.Services.AddScoped<IPhoneNumbersRepository, PhoneNumbersRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 
+
 builder.Services.AutoMapperConfiguration();
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("Admin", policy => policy.RequireRole("admin"));
-    options.AddPolicy("Regular", policy => policy.RequireRole("regular"));
-    options.AddPolicy("Visitor", policy => policy.RequireRole("visitor"));
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("Regular", policy => policy.RequireRole("Regular"));
+    options.AddPolicy("Visitor", policy => policy.RequireRole("Visitor"));
 });
 
 var app = builder.Build();
