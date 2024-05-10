@@ -29,7 +29,7 @@ namespace infoManagerAPI.Data
                     Id = 1,
                     Username = "Manager",
                     Email = "manager@infomanager.com",
-                    Password = "Password",
+                    Password = "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=",
                     Role = Models.Enums.RoleEnum.Admin
                 },
                 new User
@@ -37,7 +37,7 @@ namespace infoManagerAPI.Data
                     Id = 2,
                     Username = "Fulano",
                     Email = "fulano@infomanager.com",
-                    Password = "A12345678",
+                    Password = "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=",
                     Role = Models.Enums.RoleEnum.Regular
                 },
                 new User
@@ -45,7 +45,7 @@ namespace infoManagerAPI.Data
                     Id = 3,
                     Username = "Beltrano",
                     Email = "beltrano@infomanager.com",
-                    Password = "A12345678",
+                    Password = "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=",
                     Role = Models.Enums.RoleEnum.Visitor
                 }
                 );

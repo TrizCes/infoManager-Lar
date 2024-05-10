@@ -173,7 +173,7 @@ namespace infoManagerAPI.Migrations
                         {
                             Id = 1,
                             Email = "manager@infomanager.com",
-                            Password = "Password",
+                            Password = "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=",
                             Role = 0,
                             Username = "Manager"
                         },
@@ -181,7 +181,7 @@ namespace infoManagerAPI.Migrations
                         {
                             Id = 2,
                             Email = "fulano@infomanager.com",
-                            Password = "A12345678",
+                            Password = "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=",
                             Role = 1,
                             Username = "Fulano"
                         },
@@ -189,7 +189,7 @@ namespace infoManagerAPI.Migrations
                         {
                             Id = 3,
                             Email = "beltrano@infomanager.com",
-                            Password = "A12345678",
+                            Password = "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=",
                             Role = 2,
                             Username = "Beltrano"
                         });

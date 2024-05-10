@@ -12,8 +12,8 @@ using infoManagerAPI.Data;
 namespace infoManagerAPI.Migrations
 {
     [DbContext(typeof(InfoManagerDbContext))]
-    [Migration("20240430221607_InicialCreate")]
-    partial class InicialCreate
+    [Migration("20240510143519_InitialCreated")]
+    partial class InitialCreated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace infoManagerAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("infoManager.Models.Person", b =>
+            modelBuilder.Entity("infoManagerAPI.Models.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,7 +93,7 @@ namespace infoManagerAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("infoManager.Models.PhoneNumber", b =>
+            modelBuilder.Entity("infoManagerAPI.Models.PhoneNumber", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -141,9 +141,66 @@ namespace infoManagerAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("infoManager.Models.PhoneNumber", b =>
+            modelBuilder.Entity("infoManagerAPI.Models.User", b =>
                 {
-                    b.HasOne("infoManager.Models.Person", "Person")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "manager@infomanager.com",
+                            Password = "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=",
+                            Role = 0,
+                            Username = "Manager"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "fulano@infomanager.com",
+                            Password = "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=",
+                            Role = 1,
+                            Username = "Fulano"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "beltrano@infomanager.com",
+                            Password = "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=",
+                            Role = 2,
+                            Username = "Beltrano"
+                        });
+                });
+
+            modelBuilder.Entity("infoManagerAPI.Models.PhoneNumber", b =>
+                {
+                    b.HasOne("infoManagerAPI.Models.Person", "Person")
                         .WithMany("PhoneNumbers")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -152,7 +209,7 @@ namespace infoManagerAPI.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("infoManager.Models.Person", b =>
+            modelBuilder.Entity("infoManagerAPI.Models.Person", b =>
                 {
                     b.Navigation("PhoneNumbers");
                 });

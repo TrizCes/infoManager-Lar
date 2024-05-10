@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace infoManagerAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class InicialCreate : Migration
+    public partial class InitialCreated : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,6 +27,22 @@ namespace infoManagerAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_People", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,6 +78,16 @@ namespace infoManagerAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "Password", "Role", "Username" },
+                values: new object[,]
+                {
+                    { 1, "manager@infomanager.com", "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=", 0, "Manager" },
+                    { 2, "fulano@infomanager.com", "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=", 1, "Fulano" },
+                    { 3, "beltrano@infomanager.com", "oPMoWwfCbA3NIZFEfzkRcNBgNejVfjGgSLqHB086mhU=", 2, "Beltrano" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "PhoneNumbers",
                 columns: new[] { "Id", "Number", "PersonId", "Type" },
                 values: new object[,]
@@ -81,6 +107,12 @@ namespace infoManagerAPI.Migrations
                 name: "IX_PhoneNumbers_PersonId",
                 table: "PhoneNumbers",
                 column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -88,6 +120,9 @@ namespace infoManagerAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "PhoneNumbers");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "People");
