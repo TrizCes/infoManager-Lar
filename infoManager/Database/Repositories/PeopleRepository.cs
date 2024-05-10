@@ -1,8 +1,7 @@
-﻿using infoManager.Data;
-using infoManager.Models;
-using infoManager.Models.Enums;
-using infoManagerAPI.Exceptions;
+﻿using infoManagerAPI.Exceptions;
 using infoManagerAPI.Interfaces.Repositories;
+using infoManagerAPI.Models;
+using infoManagerAPI.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -14,13 +13,13 @@ namespace infoManagerAPI.Data.Repositories
 
         public async Task<bool> CreateAsync(Person person)
         {
-            await _context.AddAsync(person);
+            await _context.People.AddAsync(person);
             return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> UpdateAsync(Person person)
         {
-            _context.Update(person);
+            _context.People.Update(person);
             return await _context.SaveChangesAsync() > 0;
         }
 

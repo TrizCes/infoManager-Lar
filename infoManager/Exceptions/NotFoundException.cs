@@ -1,8 +1,8 @@
 ﻿namespace infoManagerAPI.Exceptions
 {
-    public class NotFoundException : Exception
+    public class NotFoundException : HttpException
     {
         public NotFoundException(string mensagem)
-            : base(mensagem) { }
+            : base(404, mensagem) { }
     }
 }

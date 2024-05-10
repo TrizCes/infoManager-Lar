@@ -1,6 +1,5 @@
-﻿using infoManager.Data;
-using infoManager.Models;
-using infoManagerAPI.Interfaces.Repositories;
+﻿using infoManagerAPI.Interfaces.Repositories;
+using infoManagerAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -17,13 +16,13 @@ namespace infoManagerAPI.Data.Repositories
 
         public async Task<bool> CreateAsync(PhoneNumber phone)
         {
-            await _context.AddAsync(phone);
+            await _context.PhoneNumbers.AddAsync(phone);
             return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<PhoneNumber> UpdateAsync(PhoneNumber phone)
         {
-            _context.Update(phone);
+            _context.PhoneNumbers.Update(phone);
             var sucess = await _context.SaveChangesAsync() > 0;
             if (!sucess) throw new Exception("Failed to update");
             Detach(phone);

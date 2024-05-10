@@ -1,7 +1,7 @@
-﻿using infoManager.Models.Enums;
+﻿using infoManagerAPI.Models.Enums;
 using System.Text.Json.Serialization;
 
-namespace infoManager.Models
+namespace infoManagerAPI.Models
 {
     public class PhoneNumber
     {

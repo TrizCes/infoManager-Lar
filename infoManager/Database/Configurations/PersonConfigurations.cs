@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using infoManager.Models;
+using infoManagerAPI.Models;
 
 namespace infoManagerAPI.Data.Configurations
 {

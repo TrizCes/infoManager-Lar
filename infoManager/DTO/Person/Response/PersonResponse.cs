@@ -1,4 +1,4 @@
-﻿using infoManager.Models.Enums;
+﻿using infoManagerAPI.Models.Enums;
 using infoManagerAPI.DTO.PhoneNumber.Response;
 
 namespace infoManagerAPI.DTO.Person.Response

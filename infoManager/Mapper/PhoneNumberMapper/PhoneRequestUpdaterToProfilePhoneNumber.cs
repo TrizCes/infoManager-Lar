@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using infoManager.Models;
+using infoManagerAPI.Models;
 using infoManagerAPI.DTO.PhoneNumber.Request;
 
 namespace infoManagerAPI.Mapper.PhoneNumberMapper

@@ -1,8 +1,9 @@
 ﻿namespace infoManagerAPI.Exceptions
 {
-    public class BadRequestException : Exception
+    public class BadRequestException : HttpException
     {
         public BadRequestException(string mensagem)
-            : base(mensagem) { }
+            : base(400, mensagem) { }
+
     }
 }
