@@ -96,3 +96,11 @@ Utilize algum dos seguintes usuarios para logar.
   "password": "Password1234"
 }
 ```
+
+##Front-end:
+
+Disponível: https://github.com/TrizCes/infoManagerFront-Lar
+
+
+https://github.com/TrizCes/infoManager-Lar/assets/115851354/3c59ce3d-b3a4-4a05-a0a1-e7704ca58abd
+
